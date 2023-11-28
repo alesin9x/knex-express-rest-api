@@ -1,9 +1,15 @@
 const express = require('express')
+const bodyParser = require('body-parser')
+const knex = require('./database/knex')
+
+
 const app = express()
 const port = 4000
+app.use(bodyParser.json())
 
-app.get('/', (req , res) => {
-    res.status(200).json({data: []})
+app.get('/', async (req , res) => {
+    const data = await knex('students')
+    res.status(200).json({data})
 })
 
 app.post('/lessons', (req, res) => {
